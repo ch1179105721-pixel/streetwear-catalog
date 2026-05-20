@@ -3,66 +3,113 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Streetwear Collection | Dynamic Catalog</title>
+    <title>Shengfeile Knitting - B2B Catalog</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
-        :root { --bg-color: #ffffff; --text-color: #000000; --accent-color: #f7f7f7; --font-main: 'Helvetica Neue', Helvetica, Arial, sans-serif; }
-        body { margin: 0; padding: 0; background-color: var(--bg-color); color: var(--text-color); font-family: var(--font-main); text-transform: uppercase; overflow-x: hidden; }
-        header { padding: 20px 40px; border-bottom: 1px solid #eee; background: #fff; position: sticky; top: 0; z-index: 1000; display: flex; flex-direction: column; align-items: center; }
-        .logo { font-size: 28px; font-weight: 900; letter-spacing: 4px; margin-bottom: 15px; cursor: pointer; }
-        .nav-container { display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; }
-        .nav-item { text-decoration: none; color: var(--text-color); font-size: 11px; font-weight: bold; letter-spacing: 1px; padding: 5px 10px; cursor: pointer; transition: all 0.3s ease; border-bottom: 2px solid transparent; }
-        .nav-item:hover, .nav-item.active { border-bottom: 2px solid #000; }
-        .hero { padding: 40px; text-align: center; background: #000; color: #fff; }
-        .hero h1 { font-size: 40px; margin: 0; font-weight: 900; letter-spacing: 2px; }
-        .container { padding: 40px; min-height: 80vh; }
-        .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 40px; }
-        .product-card { display: flex; flex-direction: column; transition: opacity 0.4s ease; }
-        .product-card.hidden { display: none; }
-        .product-image-wrapper { background-color: var(--accent-color); aspect-ratio: 3/4; overflow: hidden; position: relative; cursor: crosshair; }
-        .product-image-wrapper img { width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0; transition: opacity 0.5s ease; }
-        .img-back { opacity: 0; }
-        .product-image-wrapper:hover .img-front { opacity: 0; }
-        .product-image-wrapper:hover .img-back { opacity: 1; }
-        .product-info { padding: 15px 0; text-align: left; }
-        .product-category { font-size: 10px; color: #888; margin-bottom: 5px; letter-spacing: 1px; }
-        .product-title { font-size: 13px; font-weight: bold; letter-spacing: 0.5px; }
-        footer { padding: 60px 40px; border-top: 1px solid #eee; text-align: center; font-size: 10px; color: #666; }
-        @media (max-width: 768px) { .product-grid { grid-template-columns: repeat(2, 1fr); gap: 15px; } .container { padding: 15px; } .hero h1 { font-size: 24px; } }
+        body { font-family: 'Inter', sans-serif; background-color: #000; color: #fff; }
+        .product-card img { transition: opacity 0.3s ease-in-out; }
+        .product-card:hover .primary-img { display: none; }
+        .product-card:hover .hover-img { display: block; }
+        .hover-img { display: none; }
+        .category-btn.active { border-bottom: 2px solid #fff; }
+        @media (max-width: 640px) { .nav-scroll { overflow-x: auto; white-space: nowrap; -webkit-overflow-scrolling: touch; } }
     </style>
 </head>
-<body>
-<header>
-    <div class="logo" onclick="filterProducts('ALL')">STREETWEAR CATALOG</div>
-    <div class="nav-container" id="categoryNav">
-        <a class="nav-item active" onclick="filterProducts('ALL')">ALL</a>
+<body class="p-4 md:p-8">
+    <!-- Header -->
+    <header class="flex flex-col md:flex-row justify-between items-start md:items-center mb-12 border-b border-zinc-800 pb-6 gap-4">
+        <div>
+            <h1 class="text-3xl md:text-5xl font-black tracking-tighter mb-2">PUJIANG SHENGFEILE KNITTING</h1>
+            <p class="text-zinc-500 font-bold tracking-widest text-sm md:text-base">STREETWEAR MANUFACTURING / FULL CUSTOMIZATION</p>
+        </div>
+        <div class="text-left md:text-right">
+            <p class="font-bold text-lg">ONLINE CATALOG 2026</p>
+            <p class="text-zinc-500">ZHEJIANG, CHINA</p>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="nav-scroll flex gap-6 md:gap-10 mb-12 text-sm md:text-base font-bold sticky top-0 bg-black py-4 z-10 border-b border-zinc-900 overflow-x-auto">
+        <button onclick="filterProducts('ALL')" class="category-btn active hover:text-zinc-400 transition">ALL</button>
+        <button onclick="filterProducts('HOODIES')" class="category-btn hover:text-zinc-400 transition">HOODIES</button>
+        <button onclick="filterProducts('T-SHIRTS')" class="category-btn hover:text-zinc-400 transition">T-SHIRTS</button>
+        <button onclick="filterProducts('SHORTS')" class="category-btn hover:text-zinc-400 transition">SHORTS</button>
+        <button onclick="filterProducts('PANTS')" class="category-btn hover:text-zinc-400 transition">PANTS</button>
+        <button onclick="filterProducts('CAPS')" class="category-btn hover:text-zinc-400 transition">CAPS</button>
+        <button onclick="filterProducts('DARK')" class="category-btn hover:text-zinc-400 transition">DARK</button>
+        <button onclick="filterProducts('VINTAGE')" class="category-btn hover:text-zinc-400 transition">VINTAGE</button>
+        <button onclick="filterProducts('SYMBOLIC')" class="category-btn hover:text-zinc-400 transition">SYMBOLIC</button>
+        <button onclick="filterProducts('CAMO')" class="category-btn hover:text-zinc-400 transition">CAMO</button>
+        <button onclick="filterProducts('PATCHWORK')" class="category-btn hover:text-zinc-400 transition">PATCHWORK</button>
+    </nav>
+
+    <!-- Product Grid -->
+    <div id="productGrid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-8">
+        <!-- Products will be injected here -->
     </div>
-</header>
-<div class="hero">
-    <h1 id="heroTitle">FULL CUSTOMIZATION</h1>
-</div>
-<div class="container">
-    <div class="product-grid" id="productGrid"></div>
-</div>
-<footer>&copy; 2026 STREETWEAR PRODUCT CATALOG</footer>
-<script>
-    const products = [
-        { title: "HEAVYWEIGHT CORE HOODIE", category: "HOODIES", front: "https://sc02.alicdn.com/kf/A17728229fccb41bb85560628d9825d03D.png", back: "https://sc02.alicdn.com/kf/A6197e58eed614e73991b6099513f2b03I.png" },
-        { title: "WASHED LOGO HOODIE", category: "HOODIES", front: "https://sc02.alicdn.com/kf/A0432ee17e8414b0cae372a503aa973b8U.png", back: "https://sc02.alicdn.com/kf/A0ab968d0b8654ea2bd5d357031fc2fbey.png" },
-        { title: "WIDE LEG CARGO PANTS", category: "PANTS", front: "https://sc02.alicdn.com/kf/A9c4ba56874244acb9f7115b2d6e27104y.png", back: "https://sc02.alicdn.com/kf/A9233b728ce384f50acb3f25d126c9241v.png" },
-        { title: "RELAXED CANVAS PANTS", category: "PANTS", front: "https://sc02.alicdn.com/kf/A2ee5b5617e794558850f069c7348a4f38.png", back: "https://sc02.alicdn.com/kf/A01fd9aea95f44d699c3e674faad2f4257.png" },
-        { title: "PATCHWORK ZIP HOODIE", category: "PATCHWORK", front: "https://sc02.alicdn.com/kf/A791c43933ae940b3975a975abecd79afl.png", back: "https://sc02.alicdn.com/kf/Afc3e281946be4447be37c77f4e666ec4v.png" },
-        { title: "MESH RUNNING SHORTS", category: "SHORTS", front: "https://sc02.alicdn.com/kf/A1e86a919911c48cd90b9185e922c618cU.png", back: "https://sc02.alicdn.com/kf/A603e06967a104ef9bac2a93714f0a18bG.png" },
-        { title: "ACID WASH SWEAT SHORTS", category: "SHORTS", front: "https://sc02.alicdn.com/kf/A0e4c853fa3094d0c86b37d16f5d8d2e9i.png", back: "https://sc02.alicdn.com/kf/Aa2d113e8947a48a181b7eccb92a5589cG.png" },
-        { title: "BOXEY FIT TEE 01", category: "T-SHIRTS", front: "https://sc02.alicdn.com/kf/A1f05d0c94fff4f389aa42327f30ad318U.png", back: "https://sc02.alicdn.com/kf/A0bfc112d35c049c8a5f6d1b437cb517fs.png" },
-        { title: "RHINESTONE VINTAGE TEE", category: "T-SHIRTS", front: "https://sc02.alicdn.com/kf/A21714f0080e24d62968e5082a8e6e2c02.png", back: "https://sc02.alicdn.com/kf/A7d0aa77b9c8240789f01c6757a3cc39cw.png" },
-        { title: "VINTAGE WASHED SERIES", category: "VINTAGE", front: "https://sc02.alicdn.com/kf/A617fa57b58134fe7a46b7032a5bea590H.png", back: "https://sc02.alicdn.com/kf/A06f895634da24511bc47ed3ce4ef6902l.png" },
-        { title: "CAMO TRUCKER SET", category: "CAMO", front: "https://sc02.alicdn.com/kf/Ab76e8c59ecb34a13bb97f09f39c59b78k.png", back: "https://sc02.alicdn.com/kf/A159f56c458774dbf8bea2d91f1c8b51a3.png" },
-        { title: "DARK KNIT HOODIE", category: "DARK", front: "https://sc02.alicdn.com/kf/Af7c399b4dc25495e99db3cb82dbddc93K.png", back: "https://sc02.alicdn.com/kf/A8bb758f3758e4f72ba1f65ec278218ea8.png" }
-    ];
-    function renderProducts(data) { document.getElementById('productGrid').innerHTML = data.map(product => `<div class="product-card" data-category="${product.category}"><div class="product-image-wrapper"><img src="${product.front}" class="img-front"><img src="${product.back}" class="img-back"></div><div class="product-info"><div class="product-category">${product.category}</div><div class="product-title">${product.title}</div></div></div>`).join(''); }
-    function renderCategories() { const categories = ['ALL', 'HOODIES', 'PANTS', 'T-SHIRTS', 'SHORTS', 'PATCHWORK', 'VINTAGE', 'CAMO', 'DARK']; document.getElementById('categoryNav').innerHTML = categories.map(cat => `<a class="nav-item ${cat === 'ALL' ? 'active' : ''}" onclick="filterProducts('${cat}', this)">${cat}</a>`).join(''); }
-    function filterProducts(category, element) { document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active')); if (element) element.classList.add('active'); document.getElementById('heroTitle').innerText = category === 'ALL' ? 'FULL CUSTOMIZATION' : category + ' CUSTOMIZATION'; const cards = document.querySelectorAll('.product-card'); cards.forEach(card => { if (category === 'ALL' || card.dataset.category === category) card.classList.remove('hidden'); else card.classList.add('hidden'); }); }
-    window.onload = () => { renderProducts(products); renderCategories(); };
-</script>
+
+    <!-- Footer -->
+    <footer class="mt-20 pt-10 border-t border-zinc-800 text-center text-zinc-600 text-xs md:text-sm">
+        <p>© 2026 PUJIANG SHENGFEILE KNITTING CO., LTD. ALL RIGHTS RESERVED.</p>
+        <p class="mt-2 tracking-widest">MINIMALIST B2B INTERFACE V2.0</p>
+    </footer>
+
+    <script>
+        const products = [
+            // SYMBOLIC
+            { id: 'SYM-01', category: 'SYMBOLIC', name: 'SYM STYLE 01', image: 'https://img.alicdn.com/imgextra/i3/2215867160172/O1CN01fP2m8H1m8H1m8H1m8H_!!2215867160172.jpg', hoverImage: 'https://img.alicdn.com/imgextra/i3/2215867160172/O1CN019B3O0P1mP1m8H1m8H_!!2215867160172.jpg' },
+            { id: 'SYM-02', category: 'SYMBOLIC', name: 'SYM STYLE 02', image: 'https://img.alicdn.com/imgextra/i4/2215867160172/O1CN01p7oO8U1mP1m8H1m8H_!!2215867160172.jpg', hoverImage: 'https://img.alicdn.com/imgextra/i2/2215867160172/O1CN01mP1m8H1m8H1m8H1m8H_!!2215867160172.jpg' },
+            { id: 'SYM-03', category: 'SYMBOLIC', name: 'SYM STYLE 03', image: 'https://img.alicdn.com/imgextra/i1/2215867160172/O1CN019B3O0P1mP1m8H1m8H_!!2215867160172.jpg', hoverImage: 'https://img.alicdn.com/imgextra/i3/2215867160172/O1CN01fP2m8H1m8H1m8H1m8H_!!2215867160172.jpg' },
+            // DARK
+            { id: 'DRK-03', category: 'DARK', name: 'DARK STYLE 03', image: 'https://img.alicdn.com/imgextra/i3/2215867160172/O1CN01mP1m8H1m8H1m8H1m8H_!!2215867160172.jpg', hoverImage: 'https://img.alicdn.com/imgextra/i1/2215867160172/O1CN01mP1m8H1m8H1m8H1m8H_!!2215867160172.jpg' },
+            { id: 'DRK-04', category: 'DARK', name: 'DARK STYLE 04', image: 'https://img.alicdn.com/imgextra/i2/2215867160172/O1CN01mP1m8H1m8H1m8H1m8H_!!2215867160172.jpg', hoverImage: 'https://img.alicdn.com/imgextra/i4/2215867160172/O1CN01mP1m8H1m8H1m8H1m8H_!!2215867160172.jpg' },
+            // VINTAGE
+            { id: 'VIN-02', category: 'VINTAGE', name: 'VINTAGE STYLE 02', image: 'https://img.alicdn.com/imgextra/i1/2215867160172/O1CN01mP1m8H1m8H1m8H1m8H_!!2215867160172.jpg', hoverImage: 'https://img.alicdn.com/imgextra/i3/2215867160172/O1CN01mP1m8H1m8H1m8H1m8H_!!2215867160172.jpg' },
+            // CAMO
+            { id: 'CAM-03', category: 'CAMO', name: 'CAMO STYLE 03', image: 'https://img.alicdn.com/imgextra/i3/2215867160172/O1CN01mP1m8H1m8H1m8H1m8H_!!2215867160172.jpg', hoverImage: 'https://img.alicdn.com/imgextra/i2/2215867160172/O1CN01mP1m8H1m8H1m8H1m8H_!!2215867160172.jpg' },
+            // PATCHWORK
+            { id: 'PAT-01', category: 'PATCHWORK', name: 'PATCH STYLE 01', image: 'https://img.alicdn.com/imgextra/i4/2215867160172/O1CN01mP1m8H1m8H1m8H1m8H_!!2215867160172.jpg', hoverImage: 'https://img.alicdn.com/imgextra/i1/2215867160172/O1CN01mP1m8H1m8H1m8H1m8H_!!2215867160172.jpg' }
+        ];
+
+        function renderProducts(filter = 'ALL') {
+            const grid = document.getElementById('productGrid');
+            grid.innerHTML = '';
+            
+            const filtered = filter === 'ALL' 
+                ? products 
+                : products.filter(p => p.category === filter);
+
+            filtered.forEach(p => {
+                const card = `
+                    <div class="product-card group cursor-crosshair">
+                        <div class="aspect-[3/4] bg-zinc-900 mb-3 overflow-hidden">
+                            <img src="${p.image}" alt="${p.name}" class="primary-img w-full h-full object-cover">
+                            <img src="${p.hoverImage}" alt="${p.name}" class="hover-img w-full h-full object-cover">
+                        </div>
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <h3 class="font-bold text-xs md:text-sm tracking-tight">${p.name}</h3>
+                                <p class="text-zinc-500 text-[10px] md:text-xs uppercase tracking-widest">${p.id}</p>
+                            </div>
+                            <span class="text-[10px] md:text-xs border border-zinc-700 px-2 py-1 font-bold">B2B</span>
+                        </div>
+                    </div>
+                `;
+                grid.innerHTML += card;
+            });
+        }
+
+        function filterProducts(cat) {
+            document.querySelectorAll('.category-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if(btn.innerText === cat) btn.classList.add('active');
+            });
+            renderProducts(cat);
+        }
+
+        // Initialize
+        renderProducts();
+    </script>
 </body>
 </html>
