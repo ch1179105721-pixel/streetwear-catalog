@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shengfeile Knitting - B2B Catalog</title>
+    <title>Shengwending - B2B Catalog</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
@@ -13,13 +13,18 @@
         .product-card:hover .hover-img { display: block; }
         .hover-img { display: none; }
         .category-btn.active { border-bottom: 2px solid #fff; }
+        .hero-banner { 
+            background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('https://sc01.alicdn.com/kf/A0a0c551a487c4bad820da37c3fb582916.jpg');
+            background-size: cover;
+            background-position: center;
+        }
         @media (max-width: 640px) { .nav-scroll { overflow-x: auto; white-space: nowrap; -webkit-overflow-scrolling: touch; } }
     </style>
 </head>
 <body class="p-4 md:p-8">
-    <header class="flex flex-col md:flex-row justify-between items-start md:items-center mb-12 border-b border-zinc-800 pb-6 gap-4">
+    <header class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 border-b border-zinc-800 pb-6 gap-4">
         <div>
-            <h1 class="text-3xl md:text-5xl font-black tracking-tighter mb-2">PUJIANG SHENGFEILE KNITTING</h1>
+            <h1 class="text-3xl md:text-5xl font-black tracking-tighter mb-2">PUJIANG SHENGWENDING</h1>
             <p class="text-zinc-500 font-bold tracking-widest text-sm md:text-base">STREETWEAR MANUFACTURING / FULL CUSTOMIZATION</p>
         </div>
         <div class="text-left md:text-right">
@@ -27,6 +32,10 @@
             <p class="text-zinc-500">ZHEJIANG, CHINA</p>
         </div>
     </header>
+
+    <section class="hero-banner w-full aspect-[21/9] md:aspect-[3/1] mb-12 flex items-center justify-center relative overflow-hidden">
+        <!-- Optional Overlay Text can be added here if needed, but the image already has text -->
+    </section>
 
     <nav class="nav-scroll flex gap-6 md:gap-10 mb-12 text-sm md:text-base font-bold sticky top-0 bg-black py-4 z-10 border-b border-zinc-900 overflow-x-auto">
         <button onclick="filterProducts('ALL')" class="category-btn active hover:text-zinc-400 transition">ALL</button>
@@ -45,7 +54,7 @@
     <div id="productGrid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-8"></div>
 
     <footer class="mt-20 pt-10 border-t border-zinc-800 text-center text-zinc-600 text-xs md:text-sm">
-        <p>© 2026 PUJIANG SHENGFEILE KNITTING CO., LTD. ALL RIGHTS RESERVED.</p>
+        <p>© 2026 PUJIANG SHENGWENDING CO., LTD. ALL RIGHTS RESERVED.</p>
         <p class="mt-2 tracking-widest">MINIMALIST B2B INTERFACE V2.0</p>
     </footer>
 
